@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_listStoryFragment"
+            app:destination="@id/listStoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -34,5 +37,13 @@
         <action
             android:id="@+id/action_welcomeFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_listStoryFragment"
+            app:destination="@id/listStoryFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/listStoryFragment"
+        android:name="com.adisastrawan.storyapp.ui.ListStoryFragment"
+        android:label="fragment_list_story"
+        tools:layout="@layout/fragment_list_story" />
 </navigation>

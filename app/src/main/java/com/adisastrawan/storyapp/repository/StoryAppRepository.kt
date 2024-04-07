@@ -9,6 +9,7 @@ import com.adisastrawan.storyapp.data.api.ApiService
 import com.adisastrawan.storyapp.data.api.response.LoginResponse
 import com.adisastrawan.storyapp.data.api.response.RegisterResponse
 import com.adisastrawan.storyapp.utils.Result
+import com.google.gson.Gson
 import retrofit2.HttpException
 
 class StoryAppRepository(private val apiService: ApiService) {
@@ -20,14 +21,14 @@ class StoryAppRepository(private val apiService: ApiService) {
     ): LiveData<Result<RegisterResponse>> = liveData {
         emit(Result.Loading)
         try {
-            val _response = MutableLiveData<Result<RegisterResponse>>()
-
-            val response : LiveData<Result<RegisterResponse>> = _response
-            _response.value = Result.Success(apiService.register(username, email, password))
-            emitSource(response)
-        } catch (e: Exception) {
-            Log.e(TAG,e.message.toString())
-            emit(Result.Error(e.message.toString()))
+            val response = Result.Success(apiService.register(username, email, password))
+            emit(response)
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, RegisterResponse::class.java)
+            val errorMessage = errorBody.message
+            Log.e(TAG,errorMessage)
+            emit(Result.Error(errorMessage))
         }
 
     }
@@ -35,13 +36,14 @@ class StoryAppRepository(private val apiService: ApiService) {
     fun login(email: String, password: String): LiveData<Result<LoginResponse>> = liveData {
         emit(Result.Loading)
         try {
-            val _response = MutableLiveData<Result<LoginResponse>>()
-
-            val response : LiveData<Result<LoginResponse>> = _response
-            _response.value = Result.Success(apiService.login(email, password))
-            emitSource(response)
-        }catch (e : Exception){
-            emit(Result.Error(e.message.toString()))
+            val response = Result.Success(apiService.login(email, password))
+            emit(response)
+        }catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, RegisterResponse::class.java)
+            val errorMessage = errorBody.message
+            Log.e(TAG,errorMessage)
+            emit(Result.Error(errorMessage))
         }
     }
 
