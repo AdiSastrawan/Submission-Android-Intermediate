@@ -1,10 +1,13 @@
 package com.adisastrawan.storyapp.data.api
 
 import androidx.lifecycle.LiveData
+import com.adisastrawan.storyapp.data.api.response.ListStoryResponse
 import com.adisastrawan.storyapp.data.api.response.LoginResponse
 import com.adisastrawan.storyapp.data.api.response.RegisterResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface ApiService {
@@ -21,4 +24,8 @@ interface ApiService {
         @Field("email") email:String,
         @Field("password") password: String
     ):LoginResponse
+
+    @GET("stories")
+    suspend fun getStories(
+    ):ListStoryResponse
 }

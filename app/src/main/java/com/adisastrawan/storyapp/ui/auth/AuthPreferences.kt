@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.adisastrawan.storyapp.data.api.response.LoginResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -15,16 +16,12 @@ class AuthPreferences private constructor(private val dataStore: DataStore<Prefe
     private val TOKEN_KEY = stringPreferencesKey("token_key")
     private val USERNAME = stringPreferencesKey("username")
     private val USER_ID = stringPreferencesKey("user_id")
-    fun getToken(): Flow<String> = dataStore.data.map {
-        it[TOKEN_KEY] ?: ""
-    }
-
-    fun getUsername(): Flow<String> = dataStore.data.map {
-        it[USERNAME] ?: ""
-    }
-
-    fun getUserId(): Flow<String> = dataStore.data.map {
-        it[USER_ID] ?: ""
+    fun getAuth(): Flow<LoginResult> = dataStore.data.map{
+        LoginResult(
+            it[USERNAME]?:"",
+            it[USER_ID]?:"",
+            it[TOKEN_KEY]?:"",
+        )
     }
 
     suspend fun saveAuth(token: String, username: String, id: String) {

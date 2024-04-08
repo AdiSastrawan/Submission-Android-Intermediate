@@ -43,7 +43,18 @@
     </fragment>
     <fragment
         android:id="@+id/listStoryFragment"
-        android:name="com.adisastrawan.storyapp.ui.ListStoryFragment"
+        android:name="com.adisastrawan.storyapp.ui.liststory.ListStoryFragment"
         android:label="fragment_list_story"
-        tools:layout="@layout/fragment_list_story" />
+        tools:layout="@layout/fragment_list_story" >
+        <action
+            android:id="@+id/action_listStoryFragment_to_detailStoryFragment"
+            app:destination="@id/detailStoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailStoryFragment"
+        android:name="com.adisastrawan.storyapp.ui.DetailStoryFragment"
+        android:label="fragment_detail_story"
+        tools:layout="@layout/fragment_detail_story" >
+       
+    </fragment>
 </navigation>

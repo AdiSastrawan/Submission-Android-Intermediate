@@ -10,6 +10,7 @@ import com.adisastrawan.storyapp.ui.auth.AuthViewModel
 import com.adisastrawan.storyapp.ui.auth.dataStore
 import com.adisastrawan.storyapp.ui.auth.login.LoginViewModel
 import com.adisastrawan.storyapp.ui.auth.register.RegisterViewModel
+import com.adisastrawan.storyapp.ui.liststory.ListStoryViewModel
 
 class ViewModelFactory private constructor(
     private val storyAppRepository: StoryAppRepository,
@@ -24,6 +25,8 @@ class ViewModelFactory private constructor(
         }
         else if (modelClass.isAssignableFrom(AuthViewModel::class.java)){
             return AuthViewModel(authPreferences) as T
+        }else if(modelClass.isAssignableFrom(ListStoryViewModel::class.java)){
+            return ListStoryViewModel(storyAppRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }
@@ -34,7 +37,7 @@ class ViewModelFactory private constructor(
         fun getInstance(context: Context): ViewModelFactory {
             return instance ?: synchronized(this) {
                 instance ?: ViewModelFactory(
-                    Injection.provideRepository(),
+                    Injection.provideRepository(context),
                     AuthPreferences.getInstance(context.dataStore)
                 )
             }.also { instance = it }
