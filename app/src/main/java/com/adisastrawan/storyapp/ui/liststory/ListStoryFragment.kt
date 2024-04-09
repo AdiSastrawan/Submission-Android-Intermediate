@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.adisastrawan.storyapp.R
 import com.adisastrawan.storyapp.data.api.response.ListStoryItem
 import com.adisastrawan.storyapp.databinding.FragmentListStoryBinding
 import com.adisastrawan.storyapp.ui.ViewModelFactory
@@ -32,15 +34,20 @@ class ListStoryFragment : Fragment() {
         val authViewModel : AuthViewModel by viewModels{factory}
         val layoutManager = LinearLayoutManager(activity)
         binding.rvStory.layoutManager = layoutManager
-        getStories(viewModel)
         authViewModel.getAuth().observe(viewLifecycleOwner){
             binding.tvTest.text = "Hi,${it.name} with id ${it.userId}"
+            getStories(viewModel,it.token)
+
+        }
+        binding.fabAddStory.setOnClickListener {
+            view.findNavController().navigate(R.id.action_listStoryFragment_to_addStoryFragment)
         }
 
     }
 
-    private fun getStories(viewModel:ListStoryViewModel){
-        viewModel.getStories().observe(viewLifecycleOwner){result->
+    private fun getStories(viewModel:ListStoryViewModel,token:String){
+
+        viewModel.getStories(token).observe(viewLifecycleOwner){result->
             when(result){
                 is Result.Loading ->{
                     binding.progressBar.visibility = View.VISIBLE

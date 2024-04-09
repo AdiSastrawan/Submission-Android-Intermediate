@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.adisastrawan.storyapp.di.Injection
 import com.adisastrawan.storyapp.repository.StoryAppRepository
+import com.adisastrawan.storyapp.ui.addstory.AddStoryViewModel
 import com.adisastrawan.storyapp.ui.auth.AuthPreferences
 import com.adisastrawan.storyapp.ui.auth.AuthViewModel
 import com.adisastrawan.storyapp.ui.auth.dataStore
@@ -27,6 +28,8 @@ class ViewModelFactory private constructor(
             return AuthViewModel(authPreferences) as T
         }else if(modelClass.isAssignableFrom(ListStoryViewModel::class.java)){
             return ListStoryViewModel(storyAppRepository) as T
+        }else if(modelClass.isAssignableFrom(AddStoryViewModel::class.java)){
+            return AddStoryViewModel(storyAppRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }

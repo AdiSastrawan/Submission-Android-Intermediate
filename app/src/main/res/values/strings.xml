@@ -8,4 +8,9 @@
     <string name="text_password">Password</string>
     <string name="text_email">Email</string>
     <string name="edit_text_username">Edit Text Username</string>
+    <string name="upload">Upload</string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+    <string name="favorite">Favorite</string>
+    <string name="warning_picture_cannot_empty">Picture cannot empty</string>
 </resources>

@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.adisastrawan.storyapp.R
 import com.adisastrawan.storyapp.databinding.FragmentLoginBinding
 import com.adisastrawan.storyapp.ui.ViewModelFactory
 import com.adisastrawan.storyapp.ui.auth.AuthViewModel
 import com.adisastrawan.storyapp.utils.Result
+import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment() {
     private var _binding : FragmentLoginBinding? = null
