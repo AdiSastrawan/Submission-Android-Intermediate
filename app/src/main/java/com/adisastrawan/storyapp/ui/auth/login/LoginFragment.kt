@@ -57,9 +57,7 @@ class LoginFragment : Fragment() {
                 }
             }
         }
-        binding.tvToRegister.setOnClickListener {
-            view.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
-        }
+
 
     }
     private fun showToast(message:String){

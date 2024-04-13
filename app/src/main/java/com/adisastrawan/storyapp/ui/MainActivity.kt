@@ -39,15 +39,16 @@ class MainActivity : AppCompatActivity() {
 //    override fun onBackPressed() {
 //        val navController = findNavController(R.id.container)
 //        // Cek apakah saat ini berada di halaman home
-//        if (navController.currentDestination?.id == R.id.) {
-//            // Jika berada di halaman home, popBackStack untuk menghapus fragment login dari back stack
-//            navController.popBackStack(R.id.loginFragment, false)
-//
-//            // Launch login fragment as a single top to avoid recreating it
-//            navController.navigate(R.id.loginFragment)
-//        } else {
-//            // Jika tidak berada di halaman home, jalankan fungsi onBackPressed() bawaan
-//            super.onBackPressed()
+//        authViewModel?.getAuth()?.observe(this){
+//            if(it.token.isNotEmpty()){
+//                if (navController.currentDestination?.id == R.id.listStoryFragment) {
+//                    // Jika berada di halaman home, popBackStack untuk menghapus fragment login dari back stack
+//                    finish()
+//                } else {
+//                    // Jika tidak berada di halaman home, jalankan fungsi onBackPressed() bawaan
+//                    super.onBackPressed()
+//                }
+//            }
 //        }
 //    }
 }
