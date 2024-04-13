@@ -22,20 +22,23 @@ class ListStoryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentListStoryBinding.inflate(inflater,container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val factory = ViewModelFactory.getInstance(requireContext())
         val viewModel : ListStoryViewModel by viewModels {factory  }
         val authViewModel : AuthViewModel by viewModels{factory}
         val layoutManager = LinearLayoutManager(activity)
         binding.rvStory.layoutManager = layoutManager
         authViewModel.getAuth().observe(viewLifecycleOwner){
-            binding.tvTest.text = "Hi,${it.name} with id ${it.userId}"
+            if(it.token.isEmpty()){
+                view.findNavController().navigate(R.id.action_listStoryFragment_to_welcomeFragment)
+            }
             getStories(viewModel,it.token)
 
         }
@@ -65,7 +68,6 @@ class ListStoryFragment : Fragment() {
 
         }
     }
-
     private fun setStories(stories:List<ListStoryItem>){
         val adapter = ListStoryAdapter()
         adapter.submitList(stories)

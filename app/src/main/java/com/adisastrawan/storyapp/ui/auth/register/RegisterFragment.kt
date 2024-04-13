@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -32,7 +33,7 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val factory = ViewModelFactory.getInstance(requireContext())
         val viewModel : RegisterViewModel by viewModels { factory }
-
+        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
 
         binding.btnRegister.setOnClickListener{
             val email = binding.edRegisterEmail.text.toString()
@@ -62,5 +63,18 @@ class RegisterFragment : Fragment() {
 
     private fun showToast(message:String){
         Toast.makeText(requireContext(),message,Toast.LENGTH_LONG).show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
+    }
+    override fun onPause() {
+        super.onPause()
+        (requireActivity() as AppCompatActivity).supportActionBar?.show()
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        (requireActivity() as AppCompatActivity).supportActionBar?.show()
     }
 }

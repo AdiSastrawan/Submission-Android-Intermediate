@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -40,6 +41,7 @@ class AddStoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
         val factory = ViewModelFactory.getInstance(requireContext())
         viewModel = ViewModelProvider(requireActivity(),factory)[AddStoryViewModel::class.java]
         authViewModel = ViewModelProvider(requireActivity(),factory)[AuthViewModel::class.java]
@@ -130,7 +132,21 @@ class AddStoryFragment : Fragment() {
 
     }
     private fun showImage() {
-
         binding.ivStoryImage.setImageURI(currentImage)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        (requireActivity() as AppCompatActivity).supportActionBar?.show()
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        (requireActivity() as AppCompatActivity).supportActionBar?.show()
+        _binding = null
     }
 }

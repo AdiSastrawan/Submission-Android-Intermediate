@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -23,7 +24,7 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View{
         _binding= FragmentLoginBinding.inflate(inflater,container,false)
         return binding.root
     }
@@ -33,6 +34,7 @@ class LoginFragment : Fragment() {
         val factory = ViewModelFactory.getInstance(requireContext())
         val viewModel : LoginViewModel by viewModels { factory }
         val authViewModel : AuthViewModel by viewModels { factory }
+        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
         binding.btnLogin.setOnClickListener{
             val email = binding.edLoginEmail.text.toString()
             val password = binding.edLoginPassword.text.toString()
@@ -62,5 +64,19 @@ class LoginFragment : Fragment() {
     }
     private fun showToast(message:String){
         Toast.makeText(requireContext(),message, Toast.LENGTH_LONG).show()
+    }
+    override fun onResume() {
+        super.onResume()
+        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        (requireActivity() as AppCompatActivity).supportActionBar?.show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        (requireActivity() as AppCompatActivity).supportActionBar?.show()
     }
 }
