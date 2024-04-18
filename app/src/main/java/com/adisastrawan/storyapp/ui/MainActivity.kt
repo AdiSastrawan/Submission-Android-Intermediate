@@ -1,12 +1,13 @@
 package com.adisastrawan.storyapp.ui
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import com.adisastrawan.storyapp.R
 import com.adisastrawan.storyapp.ui.auth.AuthViewModel
 import kotlinx.coroutines.launch
@@ -28,27 +29,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
-            R.id.logout->{
+            R.id.action_logout->{
                 lifecycleScope.launch {
                     authViewModel?.saveAuth("","","")
                 }
                 true
-            }else -> super.onOptionsItemSelected(item)
+            }
+            R.id.setting_language->{
+                startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
-//    override fun onBackPressed() {
-//        val navController = findNavController(R.id.container)
-//        // Cek apakah saat ini berada di halaman home
-//        authViewModel?.getAuth()?.observe(this){
-//            if(it.token.isNotEmpty()){
-//                if (navController.currentDestination?.id == R.id.listStoryFragment) {
-//                    // Jika berada di halaman home, popBackStack untuk menghapus fragment login dari back stack
-//                    finish()
-//                } else {
-//                    // Jika tidak berada di halaman home, jalankan fungsi onBackPressed() bawaan
-//                    super.onBackPressed()
-//                }
-//            }
-//        }
-//    }
+
 }

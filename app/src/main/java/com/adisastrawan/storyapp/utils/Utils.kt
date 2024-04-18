@@ -1,6 +1,5 @@
 package com.adisastrawan.storyapp.utils
 
-import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap

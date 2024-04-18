@@ -1,6 +1,5 @@
 package com.adisastrawan.storyapp.ui.auth
 
-import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData

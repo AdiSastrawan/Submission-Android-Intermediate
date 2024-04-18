@@ -4,20 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     tools:context=".ui.auth.login.LoginFragment">
 
+    <TextView
+        android:id="@+id/tv_welcome_back"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:alpha="0"
+        android:gravity="center"
+        android:text="@string/welcome_back"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_please_log_in"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:alpha="0"
+        android:gravity="center"
+        android:text="@string/please_log_in"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_welcome_back" />
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/text_email"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:alpha="0"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_please_log_in"  />
 
     <com.adisastrawan.storyapp.ui.component.EmailEditText
         android:id="@+id/ed_login_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:alpha="0"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         tools:layout_editor_absoluteX="16dp" />
 
@@ -25,7 +59,10 @@
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/text_password"
+        android:alpha="0"
         app:layout_constraintTop_toBottomOf="@+id/ed_login_email"
         tools:layout_editor_absoluteX="16dp" />
 
@@ -33,7 +70,8 @@
         android:id="@+id/ed_login_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:alpha="0"
         android:inputType="textPassword"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
         tools:layout_editor_absoluteX="16dp" />
@@ -43,33 +81,18 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:alpha="0"
         android:layout_marginEnd="16dp"
         android:text="@string/sign_in"
+        android:transitionName="btnLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ed_login_password" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Didn't have any account?"
-        app:layout_constraintStart_toStartOf="@+id/btn_login"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login" />
-
-    <TextView
-        android:id="@+id/tv_to_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="Sign up here!!"
-        android:textColor="@android:color/holo_red_dark"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
     <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/progress_bar"
+        android:id="@+id/progressBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:indeterminate="true"

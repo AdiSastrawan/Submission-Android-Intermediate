@@ -1,16 +1,16 @@
 package com.adisastrawan.storyapp.ui.liststory
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.adisastrawan.storyapp.R
-import com.adisastrawan.storyapp.data.api.response.ListStoryItem
+import com.adisastrawan.storyapp.data.database.StoryEntity
 import com.adisastrawan.storyapp.databinding.FragmentListStoryBinding
 import com.adisastrawan.storyapp.ui.ViewModelFactory
 import com.adisastrawan.storyapp.ui.auth.AuthViewModel
@@ -68,10 +68,15 @@ class ListStoryFragment : Fragment() {
 
         }
     }
-    private fun setStories(stories:List<ListStoryItem>){
+    private fun setStories(stories:List<StoryEntity>){
         val adapter = ListStoryAdapter()
         adapter.submitList(stories)
         binding.rvStory.adapter = adapter
+        if(stories.isEmpty()){
+            binding.tvNoExist.visibility=View.VISIBLE
+        }else{
+            binding.tvNoExist.visibility = View.GONE
+        }
 
     }
 

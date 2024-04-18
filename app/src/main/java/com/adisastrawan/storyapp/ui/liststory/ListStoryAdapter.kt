@@ -8,20 +8,20 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.adisastrawan.storyapp.R
-import com.adisastrawan.storyapp.data.api.response.ListStoryItem
+import com.adisastrawan.storyapp.data.database.StoryEntity
 import com.adisastrawan.storyapp.databinding.ItemStoryBinding
 import com.bumptech.glide.Glide
 
-class ListStoryAdapter : ListAdapter<ListStoryItem,ListStoryAdapter.ViewHolder>(DIFF_CALLBACK) {
+class ListStoryAdapter : ListAdapter<StoryEntity,ListStoryAdapter.ViewHolder>(DIFF_CALLBACK) {
     companion object  {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListStoryItem>(){
-            override fun areItemsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<StoryEntity>(){
+            override fun areItemsTheSame(oldItem: StoryEntity, newItem: StoryEntity): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: ListStoryItem,
-                newItem: ListStoryItem
+                oldItem: StoryEntity,
+                newItem: StoryEntity
             ): Boolean {
                 return oldItem == newItem
             }
@@ -30,19 +30,19 @@ class ListStoryAdapter : ListAdapter<ListStoryItem,ListStoryAdapter.ViewHolder>(
     }
 
     class ViewHolder(private val binding:ItemStoryBinding):RecyclerView.ViewHolder(binding.root) {
-        fun bind(story:ListStoryItem){
+        fun bind(story:StoryEntity){
             with(binding){
-                tvUsername.text = story.name
-                tvDescription.text = story.description
+                tvItemName.text = story.username
+                tvItemDescription.text = story.description
                 Glide.with(itemView)
-                    .load(story.photoUrl)
-                    .into(ivStoryImage)
+                    .load(story.imageUrl)
+                    .into(ivItemPhoto)
             }
             itemView.setOnClickListener {
                 val bundle = Bundle()
-                bundle.putString("name",story.name)
+                bundle.putString("name",story.username)
                 bundle.putString("description",story.description)
-                bundle.putString("photoUrl",story.photoUrl)
+                bundle.putString("photoUrl",story.imageUrl)
                 itemView.findNavController().navigate(R.id.action_listStoryFragment_to_detailStoryFragment,bundle)
 
             }

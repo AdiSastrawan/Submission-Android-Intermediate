@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">StoryApp</string>
+    <string name="sign_in">Masuk</string>
+    <string name="sign_up">Daftar</string>
+    <string name="username">Username</string>
+    <string name="text_password">Kata Sandi</string>
+    <string name="text_email">Email</string>
+    <string name="upload">Unggah</string>
+    <string name="gallery">Galeri</string>
+    <string name="camera">Kamera</string>
+    <string name="favorite">Favorit</string>
+    <string name="warning_picture_cannot_empty">Gambar tidak boleh kosong</string>
+    <string name="logout">Keluar</string>
+    <string name="empty_text">TIDAK ADA DATA</string>
+    <string name="app_widget_description">Ini adalah deskripsi widget aplikasi</string>
+    <string name="story_app">Aplikasi Cerita</string>
+    <string name="setting">Pengaturan</string>
+    <string name="language">Bahasa</string>
+    <string name="welcome_to_my_story_app">Selamat datang di Aplikasi Ceritaku</string>
+    <string name="welcome_back">Selamat Kembali!</string>
+    <string name="please_log_in">Silakan masuk ke akun Anda.</string>
+    <string name="create_an_account">Buat Akun</string>
+    <string name="join_us">Gabung dengan komunitas kami dan mulailah berbagi cerita Anda dengan dunia!</string>
+    <string name="share_stories">Bagikan cerita Anda di sini</string>
+    <string name="invalid_email_address">Alamat Email tidak valid</string>
+    <string name="password_warning">Kata Sandi harus memiliki 8 karakter atau lebih</string>
+    <string name="no_data_found">Tidak ada data yang ditemukan</string>
+    <string name="add_description">Tambah Deskripsi</string>
+</resources>

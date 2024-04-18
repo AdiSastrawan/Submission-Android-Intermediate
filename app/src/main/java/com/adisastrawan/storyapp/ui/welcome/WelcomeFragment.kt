@@ -1,7 +1,8 @@
-package com.adisastrawan.storyapp.ui
+package com.adisastrawan.storyapp.ui.welcome
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.adisastrawan.storyapp.R
 import com.adisastrawan.storyapp.databinding.FragmentWelcomeBinding
+import com.adisastrawan.storyapp.ui.ViewModelFactory
 import com.adisastrawan.storyapp.ui.auth.AuthViewModel
-import com.adisastrawan.storyapp.ui.auth.dataStore
-import kotlinx.coroutines.flow.first
 
 
 class WelcomeFragment : Fragment() {
@@ -24,7 +24,6 @@ class WelcomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWelcomeBinding.inflate(inflater,container,false)
-
         return binding.root
     }
 
@@ -43,6 +42,21 @@ class WelcomeFragment : Fragment() {
         }
         binding.btnToRegister.setOnClickListener{
             view.findNavController().navigate(R.id.action_welcomeFragment_to_registerFragment)
+        }
+        playAnimation()
+    }
+
+    private fun playAnimation() {
+        val welcome = ObjectAnimator.ofFloat(binding.tvWelcome, View.ALPHA, 1f).setDuration(300)
+        val subWelcome= ObjectAnimator.ofFloat(binding.tvSubWelcome, View.ALPHA, 1f).setDuration(300)
+        val signIn  = ObjectAnimator.ofFloat(binding.btnToLogin,View.ALPHA,1f).setDuration(300)
+        val signUp  = ObjectAnimator.ofFloat(binding.btnToRegister,View.ALPHA,1f).setDuration(300)
+        val button = AnimatorSet().apply {
+            playTogether(signIn,signUp)
+        }
+        AnimatorSet().apply {
+            playSequentially(welcome,subWelcome,button)
+            start()
         }
     }
     override fun onResume() {

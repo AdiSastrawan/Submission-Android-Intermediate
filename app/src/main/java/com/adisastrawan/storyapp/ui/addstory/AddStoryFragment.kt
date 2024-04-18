@@ -59,7 +59,7 @@ class AddStoryFragment : Fragment() {
             }
 
         }
-        binding.btnUpload.setOnClickListener {
+        binding.buttonAdd.setOnClickListener {
             authViewModel?.getAuth()?.observe(viewLifecycleOwner){
                 uploadImage(it.token)
             }
@@ -69,7 +69,7 @@ class AddStoryFragment : Fragment() {
     private fun uploadImage(token:String) {
         currentImage?.let{
             val file = uriToFile(it,requireContext()).reduceFileSize()
-            val description = binding.edDescription.text.toString()
+            val description = binding.edAddDescription.text.toString()
             viewModel?.postStory(token,file, description)?.observe(viewLifecycleOwner){result->
                 when(result){
                     is Result.Loading ->{
@@ -132,7 +132,7 @@ class AddStoryFragment : Fragment() {
 
     }
     private fun showImage() {
-        binding.ivStoryImage.setImageURI(currentImage)
+        binding.ivAddImage.setImageURI(currentImage)
     }
 
     override fun onResume() {

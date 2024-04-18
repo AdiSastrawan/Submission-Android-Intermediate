@@ -2,20 +2,14 @@ package com.adisastrawan.storyapp.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
-import androidx.lifecycle.map
-import com.adisastrawan.storyapp.data.api.ApiConfig
 import com.adisastrawan.storyapp.data.api.ApiService
-import com.adisastrawan.storyapp.data.api.response.ListStoryItem
-import com.adisastrawan.storyapp.data.api.response.ListStoryResponse
 import com.adisastrawan.storyapp.data.api.response.LoginResponse
 import com.adisastrawan.storyapp.data.api.response.RegisterResponse
-import com.adisastrawan.storyapp.ui.auth.AuthPreferences
+import com.adisastrawan.storyapp.data.database.StoryDao
+import com.adisastrawan.storyapp.data.database.StoryEntity
 import com.adisastrawan.storyapp.utils.Result
 import com.google.gson.Gson
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -23,7 +17,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.HttpException
 import java.io.File
 
-class StoryAppRepository(private val apiService: ApiService) {
+class StoryAppRepository(private val apiService: ApiService,private val storyDao:StoryDao) {
 
     fun register(
         username: String,
@@ -56,21 +50,26 @@ class StoryAppRepository(private val apiService: ApiService) {
         }
     }
 
-    fun getStories(token:String):LiveData<Result<List<ListStoryItem>>> = liveData{
+    fun getStories(token:String):LiveData<Result<List<StoryEntity>>> = liveData{
         emit(Result.Loading)
         try {
             val bearerToken = "Bearer $token"
             val response = apiService.getStories(bearerToken)
             val responseResult = response.listStory
-            emit(Result.Success(responseResult))
+            val storyEntityList = responseResult.map {
+                StoryEntity(username = it.name, imageUrl = it.photoUrl, description = it.description)
+            }
+            storyDao.deleteAll()
+            storyDao.insert(storyEntityList)
         }catch (e:HttpException){
             val errorMessage = parseJsonToErrorMessage(e.response()?.errorBody()?.string())
             Log.e(TAG,errorMessage)
             emit(Result.Error(errorMessage))
         }
+        val localData=Result.Success(storyDao.getAllStory())
+        emit(localData)
 
     }
-
     fun postStory(token: String, file: File,description:String):LiveData<Result<RegisterResponse>> = liveData{
         emit(Result.Loading)
         try {
@@ -100,9 +99,9 @@ class StoryAppRepository(private val apiService: ApiService) {
         const val TAG = "StoryAppRepository"
         @Volatile
         private var INSTANCE: StoryAppRepository? = null
-        fun getInstance(apiService: ApiService): StoryAppRepository {
+        fun getInstance(apiService: ApiService,storyDao: StoryDao): StoryAppRepository {
             return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: StoryAppRepository(apiService)
+                INSTANCE ?: StoryAppRepository(apiService, storyDao )
             }.also { INSTANCE = it }
         }
     }
