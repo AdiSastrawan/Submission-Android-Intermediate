@@ -50,14 +50,13 @@ class StoryAppRepository(private val apiService: ApiService,private val storyDao
         }
     }
 
-    fun getStories(token:String):LiveData<Result<List<StoryEntity>>> = liveData{
+    fun getStories():LiveData<Result<List<StoryEntity>>> = liveData{
         emit(Result.Loading)
         try {
-            val bearerToken = "Bearer $token"
-            val response = apiService.getStories(bearerToken)
+            val response = apiService.getStories()
             val responseResult = response.listStory
             val storyEntityList = responseResult.map {
-                StoryEntity(username = it.name, imageUrl = it.photoUrl, description = it.description, lat = it.lat,lon= it.lon)
+                StoryEntity(id = it.id, username = it.name, imageUrl = it.photoUrl, description = it.description, lat = it.lat,lon= it.lon)
             }
             storyDao.deleteAll()
             storyDao.insert(storyEntityList)
@@ -71,10 +70,9 @@ class StoryAppRepository(private val apiService: ApiService,private val storyDao
 
     }
 
-    fun postStory(token: String, file: File,description:String):LiveData<Result<RegisterResponse>> = liveData{
+    fun postStory( file: File,description:String):LiveData<Result<RegisterResponse>> = liveData{
         emit(Result.Loading)
         try {
-            val bearerToken = "Bearer $token"
             val requestBody = description.toRequestBody("text/plain".toMediaType())
             val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
             val multipartBody = MultipartBody.Part.createFormData(
@@ -82,7 +80,7 @@ class StoryAppRepository(private val apiService: ApiService,private val storyDao
                 file.name,
                 requestImageFile
             )
-            val response = apiService.postStory(bearerToken,multipartBody,requestBody)
+            val response = apiService.postStory(multipartBody,requestBody)
             emit(Result.Success(response))
         }catch (e:HttpException){
             val errorMessage = parseJsonToErrorMessage(e.response()?.errorBody()?.string())
@@ -91,14 +89,13 @@ class StoryAppRepository(private val apiService: ApiService,private val storyDao
         }
 
     }
-    fun getStoriesWithLocation(token:String):LiveData<Result<List<StoryEntity>>> = liveData{
+    fun getStoriesWithLocation():LiveData<Result<List<StoryEntity>>> = liveData{
         emit(Result.Loading)
         try {
-            val bearerToken = "Bearer $token"
-            val response = apiService.getStoriesWithLocation(bearerToken)
+            val response = apiService.getStoriesWithLocation()
             val responseResult = response.listStory
             val storyEntityList = responseResult.map {
-                StoryEntity(username = it.name, imageUrl = it.photoUrl, description = it.description, lat = it.lat,lon= it.lon)
+                StoryEntity(id=it.id,username = it.name, imageUrl = it.photoUrl, description = it.description, lat = it.lat,lon= it.lon)
             }
             storyDao.deleteAll()
             storyDao.insert(storyEntityList)

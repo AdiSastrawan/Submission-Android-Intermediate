@@ -5,5 +5,5 @@ import com.adisastrawan.storyapp.repository.StoryAppRepository
 import java.io.File
 
 class AddStoryViewModel(private val repository:StoryAppRepository): ViewModel() {
-    fun postStory(token:String, file: File, description:String)=repository.postStory(token,file, description)
+    fun postStory( file: File, description:String)=repository.postStory(file, description)
 }

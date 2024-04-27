@@ -39,7 +39,7 @@ class ListStoryFragment : Fragment() {
             if(it.token.isEmpty()){
                 view.findNavController().navigate(R.id.action_listStoryFragment_to_welcomeFragment)
             }
-            getStories(viewModel,it.token)
+            getStories(viewModel)
 
         }
         binding.fabAddStory.setOnClickListener {
@@ -48,9 +48,9 @@ class ListStoryFragment : Fragment() {
 
     }
 
-    private fun getStories(viewModel:ListStoryViewModel,token:String){
+    private fun getStories(viewModel:ListStoryViewModel){
 
-        viewModel.getStories(token).observe(viewLifecycleOwner){result->
+        viewModel.getStories().observe(viewLifecycleOwner){result->
             when(result){
                 is Result.Loading ->{
                     binding.progressBar.visibility = View.VISIBLE

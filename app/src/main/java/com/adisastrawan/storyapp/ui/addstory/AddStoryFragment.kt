@@ -60,17 +60,17 @@ class AddStoryFragment : Fragment() {
 
         }
         binding.buttonAdd.setOnClickListener {
-            authViewModel?.getAuth()?.observe(viewLifecycleOwner){
-                uploadImage(it.token)
-            }
+
+                uploadImage()
+
         }
     }
 
-    private fun uploadImage(token:String) {
+    private fun uploadImage() {
         currentImage?.let{
             val file = uriToFile(it,requireContext()).reduceFileSize()
             val description = binding.edAddDescription.text.toString()
-            viewModel?.postStory(token,file, description)?.observe(viewLifecycleOwner){result->
+            viewModel?.postStory(file, description)?.observe(viewLifecycleOwner){result->
                 when(result){
                     is Result.Loading ->{
                         binding.progressBar.visibility = View.VISIBLE

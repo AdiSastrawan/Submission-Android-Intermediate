@@ -4,5 +4,5 @@ import androidx.lifecycle.ViewModel
 import com.adisastrawan.storyapp.repository.StoryAppRepository
 
 class MapsViewModel(private val repository: StoryAppRepository) : ViewModel() {
-    fun getStoriesWithLocation(token:String) = repository.getStoriesWithLocation(token)
+    fun getStoriesWithLocation() = repository.getStoriesWithLocation()
 }

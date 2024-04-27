@@ -29,14 +29,12 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsFragment : Fragment() {
     private var _binding: FragmentMapsBinding? = null
-    private lateinit var authViewModel: AuthViewModel
     private lateinit var viewModel: MapsViewModel
     private val boundsBuilder = LatLngBounds.Builder()
     private val binding get() = _binding!!
     private val callback = OnMapReadyCallback { googleMap ->
 
-        authViewModel.getAuth().observe(viewLifecycleOwner) {
-            viewModel.getStoriesWithLocation(it.token).observe(viewLifecycleOwner) { result ->
+            viewModel.getStoriesWithLocation().observe(viewLifecycleOwner) { result ->
                 when (result) {
                     is Result.Loading -> {
                         binding.progressBar.visibility = View.VISIBLE
@@ -74,7 +72,7 @@ class MapsFragment : Fragment() {
 
             }
 
-        }
+
 
     }
 
@@ -90,12 +88,9 @@ class MapsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val factory = ViewModelFactory.getInstance(requireContext())
-        authViewModel = ViewModelProvider(requireActivity(), factory)[AuthViewModel::class.java]
         viewModel = ViewModelProvider(requireActivity(), factory)[MapsViewModel::class.java]
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
-
-
     }
 
 

@@ -4,5 +4,5 @@ import androidx.lifecycle.ViewModel
 import com.adisastrawan.storyapp.repository.StoryAppRepository
 
 class ListStoryViewModel(private val repository: StoryAppRepository):ViewModel() {
-    fun getStories(token:String)=repository.getStories(token)
+    fun getStories()=repository.getStories()
 }

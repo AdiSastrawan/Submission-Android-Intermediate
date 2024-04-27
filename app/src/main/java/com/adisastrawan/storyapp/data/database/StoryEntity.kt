@@ -7,9 +7,9 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "story")
 
 data class StoryEntity (
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo("id")
-    var id  : Int = 0,
+    var id  : String ,
     @ColumnInfo(name="username")
     var username : String,
     @ColumnInfo(name="imageUrl")
