@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -42,6 +43,8 @@ android {
 }
 
 dependencies {
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
     ksp("androidx.room:room-compiler:2.6.1")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("androidx.core:core-ktx:1.12.0")

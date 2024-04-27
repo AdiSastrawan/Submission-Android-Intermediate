@@ -15,5 +15,9 @@ data class StoryEntity (
     @ColumnInfo(name="imageUrl")
     var imageUrl : String,
     @ColumnInfo(name = "description")
-    var description : String
+    var description : String,
+    @ColumnInfo(name="lat")
+    var lat : Double? = null,
+    @ColumnInfo(name = "lon")
+    var lon:Double?=null
 )

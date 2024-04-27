@@ -12,6 +12,7 @@ import com.adisastrawan.storyapp.ui.auth.dataStore
 import com.adisastrawan.storyapp.ui.auth.login.LoginViewModel
 import com.adisastrawan.storyapp.ui.auth.register.RegisterViewModel
 import com.adisastrawan.storyapp.ui.liststory.ListStoryViewModel
+import com.adisastrawan.storyapp.ui.maps.MapsViewModel
 
 class ViewModelFactory private constructor(
     private val storyAppRepository: StoryAppRepository,
@@ -30,6 +31,8 @@ class ViewModelFactory private constructor(
             return ListStoryViewModel(storyAppRepository) as T
         }else if(modelClass.isAssignableFrom(AddStoryViewModel::class.java)){
             return AddStoryViewModel(storyAppRepository) as T
+        }else if(modelClass.isAssignableFrom(MapsViewModel::class.java)){
+            return MapsViewModel(storyAppRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }

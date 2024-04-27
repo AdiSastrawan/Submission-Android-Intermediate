@@ -57,7 +57,7 @@ class StoryAppRepository(private val apiService: ApiService,private val storyDao
             val response = apiService.getStories(bearerToken)
             val responseResult = response.listStory
             val storyEntityList = responseResult.map {
-                StoryEntity(username = it.name, imageUrl = it.photoUrl, description = it.description)
+                StoryEntity(username = it.name, imageUrl = it.photoUrl, description = it.description, lat = it.lat,lon= it.lon)
             }
             storyDao.deleteAll()
             storyDao.insert(storyEntityList)
@@ -70,6 +70,7 @@ class StoryAppRepository(private val apiService: ApiService,private val storyDao
         emit(localData)
 
     }
+
     fun postStory(token: String, file: File,description:String):LiveData<Result<RegisterResponse>> = liveData{
         emit(Result.Loading)
         try {
@@ -90,11 +91,32 @@ class StoryAppRepository(private val apiService: ApiService,private val storyDao
         }
 
     }
+    fun getStoriesWithLocation(token:String):LiveData<Result<List<StoryEntity>>> = liveData{
+        emit(Result.Loading)
+        try {
+            val bearerToken = "Bearer $token"
+            val response = apiService.getStoriesWithLocation(bearerToken)
+            val responseResult = response.listStory
+            val storyEntityList = responseResult.map {
+                StoryEntity(username = it.name, imageUrl = it.photoUrl, description = it.description, lat = it.lat,lon= it.lon)
+            }
+            storyDao.deleteAll()
+            storyDao.insert(storyEntityList)
+        }catch (e:HttpException){
+            val errorMessage = parseJsonToErrorMessage(e.response()?.errorBody()?.string())
+            Log.e(TAG,errorMessage)
+            emit(Result.Error(errorMessage))
+        }
+        val localData=Result.Success(storyDao.getAllStory())
+        emit(localData)
 
+    }
     private fun parseJsonToErrorMessage(jsonInString:String?):String{
         val errorBody = Gson().fromJson(jsonInString, RegisterResponse::class.java)
         return errorBody.message
     }
+
+
     companion object {
         const val TAG = "StoryAppRepository"
         @Volatile
