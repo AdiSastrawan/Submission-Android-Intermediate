@@ -23,7 +23,7 @@ internal class StackRemoteViewsFactory(private val context: Context) : RemoteVie
 
     private fun fetchListStory() {
         runBlocking {
-            mWidgetItems = storyDao.getAllStory()
+            mWidgetItems = storyDao.getAllStoryForWidget()
         }
     }
 

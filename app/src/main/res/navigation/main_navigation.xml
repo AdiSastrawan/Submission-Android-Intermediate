@@ -70,9 +70,6 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/listStoryFragment"
             app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_listStoryFragment_to_mapsFragment"
-            app:destination="@id/mapsFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailStoryFragment"
@@ -88,18 +85,6 @@
         tools:layout="@layout/fragment_add_story" >
         <action
             android:id="@+id/action_addStoryFragment_to_listStoryFragment"
-            app:destination="@id/listStoryFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/listStoryFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/mapsFragment"
-        android:name="com.adisastrawan.storyapp.ui.maps.MapsFragment"
-        android:label="fragment_maps"
-        tools:layout="@layout/fragment_maps" >
-        <action
-            android:id="@+id/action_mapsFragment_to_listStoryFragment"
             app:destination="@id/listStoryFragment"
             app:launchSingleTop="true"
             app:popUpTo="@id/listStoryFragment"

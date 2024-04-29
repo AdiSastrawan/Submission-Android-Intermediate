@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +13,7 @@ import com.adisastrawan.storyapp.data.database.StoryEntity
 import com.adisastrawan.storyapp.databinding.ItemStoryBinding
 import com.bumptech.glide.Glide
 
-class ListStoryAdapter : ListAdapter<StoryEntity,ListStoryAdapter.ViewHolder>(DIFF_CALLBACK) {
+class ListStoryAdapter : PagingDataAdapter<StoryEntity,ListStoryAdapter.ViewHolder>(DIFF_CALLBACK) {
     companion object  {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<StoryEntity>(){
             override fun areItemsTheSame(oldItem: StoryEntity, newItem: StoryEntity): Boolean {
@@ -56,6 +57,8 @@ class ListStoryAdapter : ListAdapter<StoryEntity,ListStoryAdapter.ViewHolder>(DI
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val story = getItem(position)
-        holder.bind(story)
+        if (story != null) {
+            holder.bind(story)
+        }
     }
 }

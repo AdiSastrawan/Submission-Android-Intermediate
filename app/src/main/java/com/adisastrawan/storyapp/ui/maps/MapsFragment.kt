@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.adisastrawan.storyapp.R
@@ -43,13 +44,13 @@ class MapsFragment : Fragment() {
                     is Result.Success -> {
                         binding.progressBar.visibility = View.GONE
                         val data = result.data
-                        data.forEach { data ->
-                            val latLng = LatLng(data.lat!!, data.lon!!)
+                        data.forEach {
+                            val latLng = LatLng(it.lat!!, it.lon!!)
                             googleMap.addMarker(
                                 MarkerOptions()
                                     .position(latLng)
-                                    .title(data.username)
-                                    .snippet(data.description)
+                                    .title(it.name)
+                                    .snippet(it.description)
                             )
                             boundsBuilder.include(latLng)
                         }
@@ -88,6 +89,7 @@ class MapsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val factory = ViewModelFactory.getInstance(requireContext())
+        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
         viewModel = ViewModelProvider(requireActivity(), factory)[MapsViewModel::class.java]
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
@@ -96,5 +98,10 @@ class MapsFragment : Fragment() {
 
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        (requireActivity() as AppCompatActivity).supportActionBar?.show()
     }
 }

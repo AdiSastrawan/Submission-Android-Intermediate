@@ -15,7 +15,7 @@ object Injection {
         val user = runBlocking { pref.getAuth().first() }
         val apiService = ApiConfig.getApiService(user.token)
         val database = StoryRoomDatabase.getInstance(context)
-        val userDao = database.storyDao()
-        return StoryAppRepository.getInstance(apiService,userDao)
+
+        return StoryAppRepository.getInstance(apiService,database)
     }
 }

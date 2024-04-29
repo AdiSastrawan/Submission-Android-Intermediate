@@ -28,4 +28,5 @@
     <string name="no_data_found">No Data Found</string>
     <string name="add_description">Add Description</string>
     <string name="map">Map</string>
+    <string name="retry">Retry</string>
 </resources>
