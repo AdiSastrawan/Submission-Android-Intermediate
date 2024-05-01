@@ -15,7 +15,7 @@ import com.adisastrawan.storyapp.data.database.StoryRoomDatabase
 import com.adisastrawan.storyapp.ui.auth.AuthPreferences
 
 @OptIn(ExperimentalPagingApi::class)
-class StoryRemoteMediator(private val database: StoryRoomDatabase, private val apiService: ApiService):
+class StoryRemoteMediator(private val database: StoryRoomDatabase, private val apiService: ApiService,private val token:String):
     RemoteMediator<Int, StoryEntity>() {
     override suspend fun initialize(): InitializeAction {
         return InitializeAction.LAUNCH_INITIAL_REFRESH
@@ -58,7 +58,7 @@ class StoryRemoteMediator(private val database: StoryRoomDatabase, private val a
             }
         }
         try {
-            val response = apiService.getStories(page,state.config.pageSize)
+            val response = apiService.getStories(page,state.config.pageSize,token)
             val endOfPaginationReached = response.listStory.isEmpty()
             val responseStory = response.listStory.map {
                 StoryEntity(id = it.id, username = it.name, imageUrl = it.photoUrl, description = it.description,lat = it.lat,lon=it.lon)

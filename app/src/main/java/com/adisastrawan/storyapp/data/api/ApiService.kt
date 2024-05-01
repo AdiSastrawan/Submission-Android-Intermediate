@@ -32,17 +32,22 @@ interface ApiService {
     @GET("stories")
     suspend fun getStories(
         @Query("page") page: Int = 1,
-        @Query("size") size: Int = 20
+        @Query("size") size: Int = 20,
+        @Header("Authorization") token: String,
     ):ListStoryResponse
 
     @GET("stories")
     suspend fun getStoriesWithLocation(
         @Query("location") location:Int = 1,
+        @Header("Authorization") token: String,
     ):ListStoryResponse
     @Multipart
     @POST("stories")
     suspend fun postStory(
         @Part file: MultipartBody.Part,
         @Part("description") description: RequestBody,
+        @Part("lat") lat : RequestBody?,
+        @Part("lon") lon : RequestBody?,
+        @Header("Authorization") token: String,
     ):RegisterResponse
 }

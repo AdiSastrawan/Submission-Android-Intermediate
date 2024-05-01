@@ -39,6 +39,8 @@ android {
     }
     testOptions {
         unitTests.isReturnDefaultValues = true
+        animationsDisabled = true
+
     }
     buildFeatures{
         viewBinding = true
@@ -49,6 +51,7 @@ android {
 dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
+    implementation("androidx.test.espresso:espresso-contrib:3.5.1")
     ksp("androidx.room:room-compiler:2.6.1")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("androidx.core:core-ktx:1.12.0")
@@ -69,6 +72,9 @@ dependencies {
     implementation("androidx.room:room-paging:2.6.1")
     implementation("androidx.paging:paging-runtime-ktx:3.2.1")
     implementation("androidx.test.espresso:espresso-idling-resource:3.5.1")
+    implementation("com.google.android.gms:play-services-maps:18.0.0")
+    implementation("com.google.android.gms:play-services-location:18.0.0")
+    implementation("androidx.test.espresso:espresso-idling-resource:3.4.0")
 
     testImplementation("androidx.arch.core:core-testing:2.2.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
@@ -77,7 +83,12 @@ dependencies {
     testImplementation("org.mockito:mockito-inline:5.2.0")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
     androidTestImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
     androidTestImplementation("com.squareup.okhttp3:okhttp-tls:4.9.3")
     androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    androidTestImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
+    androidTestImplementation("com.squareup.okhttp3:okhttp-tls:4.9.3")
+    androidTestImplementation( "androidx.test.espresso:espresso-intents:3.4.0")
+    debugImplementation("androidx.fragment:fragment-testing:1.6.2")
 }

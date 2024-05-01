@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.adisastrawan.storyapp.R
 import com.adisastrawan.storyapp.databinding.FragmentLoginBinding
+import com.adisastrawan.storyapp.ui.MainActivity
 import com.adisastrawan.storyapp.ui.ViewModelFactory
 import com.adisastrawan.storyapp.ui.auth.AuthViewModel
 import com.adisastrawan.storyapp.utils.Result
@@ -34,7 +35,9 @@ class LoginFragment : Fragment() {
         val factory = ViewModelFactory.getInstance(requireContext())
         val viewModel : LoginViewModel by viewModels { factory }
         val authViewModel : AuthViewModel by viewModels { factory }
-        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
+        if(requireActivity() is MainActivity){
+            (requireActivity() as MainActivity).supportActionBar?.hide()
+        }
         binding.btnLogin.setOnClickListener{
             val email = binding.edLoginEmail.text.toString()
             val password = binding.edLoginPassword.text.toString()
@@ -46,7 +49,7 @@ class LoginFragment : Fragment() {
                     is Result.Success -> {
                         binding.progressBar.visibility = View.GONE
                         val data = result.data.loginResult
-                        authViewModel.saveAuth(data.token,data.name,data.userId)
+//                        authViewModel.saveAuth(data.token,data.name,data.userId)
                         view.findNavController().navigate(R.id.action_loginFragment_to_listStoryFragment)
                     }
                     is Result.Error -> {
@@ -85,16 +88,22 @@ class LoginFragment : Fragment() {
     }
     override fun onResume() {
         super.onResume()
-        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
+        if(requireActivity() is MainActivity){
+            (requireActivity() as MainActivity).supportActionBar?.hide()
+        }
     }
 
     override fun onPause() {
         super.onPause()
-        (requireActivity() as AppCompatActivity).supportActionBar?.show()
+        if(requireActivity() is MainActivity){
+            (requireActivity() as MainActivity).supportActionBar?.show()
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        (requireActivity() as AppCompatActivity).supportActionBar?.show()
+        if(requireActivity() is MainActivity){
+            (requireActivity() as MainActivity).supportActionBar?.show()
+        }
     }
 }

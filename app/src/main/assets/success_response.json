@@ -1,0 +1,96 @@
+{
+  "error": false,
+  "message": "Stories fetched successfully",
+  "listStory": [
+    {
+      "id": "story-xZNqxiYgpl3K_HN_",
+      "name": "reviewer103",
+      "description": "desc",
+      "photoUrl": "https://story-api.dicoding.dev/images/stories/photos-1714544995521_440de5dbb9393e711447.jpg",
+      "createdAt": "2024-05-01T06:29:55.524Z",
+      "lat": 37.4220936,
+      "lon": -122.083922
+    },
+    {
+      "id": "story-Hb7xBhmB2GTRZJDL",
+      "name": "Raja Terakhir Bangkit",
+      "description": "test with loc",
+      "photoUrl": "https://story-api.dicoding.dev/images/stories/photos-1714544856614_9abcc6f558d996de24ef.jpg",
+      "createdAt": "2024-05-01T06:27:36.616Z",
+      "lat": 24.471153,
+      "lon": 39.611122
+    },
+    {
+      "id": "story-p5qUiWSG7yXfqU0a",
+      "name": "NPC001",
+      "description": "pppppppppp",
+      "photoUrl": "https://story-api.dicoding.dev/images/stories/photos-1714544177808_f34e0950bcc08af3efbf.jpg",
+      "createdAt": "2024-05-01T06:16:17.810Z",
+      "lat": -6.895897099961654,
+      "lon": 107.6340825855732
+    },
+    {
+      "id": "story-3j1Yqe7JTiBiisqx",
+      "name": "NPC001",
+      "description": "pppp",
+      "photoUrl": "https://story-api.dicoding.dev/images/stories/photos-1714540973035_01046f24ea27cb0f6c61.jpg",
+      "createdAt": "2024-05-01T05:22:53.039Z",
+      "lat": -6.895711369223485,
+      "lon": 107.63384655117989
+    },
+    {
+      "id": "story-pgK07ksnXZJqFkbg",
+      "name": "uauau",
+      "description": "RAJA TERAKHIR GALAU -TEST LOC",
+      "photoUrl": "https://story-api.dicoding.dev/images/stories/photos-1714540340375_780b0fcb18cbddedc9cc.jpg",
+      "createdAt": "2024-05-01T05:12:20.377Z",
+      "lat": -6.5065243,
+      "lon": 106.8477013
+    },
+    {
+      "id": "story--1-NGw4OoNTHmfQX",
+      "name": "dicodingg",
+      "description": "No Description",
+      "photoUrl": "https://story-api.dicoding.dev/images/stories/photos-1714532042841_0029c12667bb0635c4c8.jpg",
+      "createdAt": "2024-05-01T02:54:02.844Z",
+      "lat": 37.4219983,
+      "lon": -122.084
+    },
+    {
+      "id": "story-05YGVEfHoUXm2ztu",
+      "name": "Fani",
+      "description": "Test Location",
+      "photoUrl": "https://story-api.dicoding.dev/images/stories/photos-1714525841107_1b7717b441e3a9f02ac2.jpg",
+      "createdAt": "2024-05-01T01:10:41.110Z",
+      "lat": 37.4220936,
+      "lon": -122.083922
+    },
+    {
+      "id": "story-0Pi0LkSriCjS8GZI",
+      "name": "aya",
+      "description": "test",
+      "photoUrl": "https://story-api.dicoding.dev/images/stories/photos-1714518479816_a6c2e0fa832f4ece20f2.jpg",
+      "createdAt": "2024-04-30T23:07:59.818Z",
+      "lat": -6.904589749582256,
+      "lon": 107.62426536530256
+    },
+    {
+      "id": "story-J5yGAqWlvAEpE459",
+      "name": "galihh",
+      "description": "gsshs",
+      "photoUrl": "https://story-api.dicoding.dev/images/stories/photos-1714513123134_97cd81caca1f28859218.jpg",
+      "createdAt": "2024-04-30T21:38:43.135Z",
+      "lat": -6.2418136,
+      "lon": 106.7302671
+    },
+    {
+      "id": "story-x8VSRa-Y0pX-h8tS",
+      "name": "jariah",
+      "description": "ggggg",
+      "photoUrl": "https://story-api.dicoding.dev/images/stories/photos-1714512725702_6235206aa74d8bed505f.jpg",
+      "createdAt": "2024-04-30T21:32:05.704Z",
+      "lat": -7.7179047,
+      "lon": 111.8817588
+    }
+  ]
+}

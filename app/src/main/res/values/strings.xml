@@ -29,4 +29,6 @@
     <string name="add_description">Add Description</string>
     <string name="map">Map</string>
     <string name="retry">Retry</string>
+    <string name="show_location">Show My Location</string>
+    <string name="location_not_found">Location is not found. Try Again</string>
 </resources>

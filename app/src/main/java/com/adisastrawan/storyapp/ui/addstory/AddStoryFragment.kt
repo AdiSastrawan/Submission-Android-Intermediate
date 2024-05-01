@@ -2,6 +2,7 @@ package com.adisastrawan.storyapp.ui.addstory
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -24,6 +25,8 @@ import com.adisastrawan.storyapp.utils.Result
 import com.adisastrawan.storyapp.utils.getImageUri
 import com.adisastrawan.storyapp.utils.reduceFileSize
 import com.adisastrawan.storyapp.utils.uriToFile
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 
 class AddStoryFragment : Fragment() {
     private var _binding : FragmentAddStoryBinding? = null
@@ -31,6 +34,9 @@ class AddStoryFragment : Fragment() {
     private var currentImage : Uri? = null
     private var viewModel:AddStoryViewModel? =null
     private var authViewModel:AuthViewModel?=null
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private var lat:Double? = null
+    private var lon:Double? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,26 +49,31 @@ class AddStoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()
         val factory = ViewModelFactory.getInstance(requireContext())
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         viewModel = ViewModelProvider(requireActivity(),factory)[AddStoryViewModel::class.java]
         authViewModel = ViewModelProvider(requireActivity(),factory)[AuthViewModel::class.java]
         binding.btnGallery.setOnClickListener {
             startGallery()
         }
         binding.btnCamera.setOnClickListener {
-            if(ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.CAMERA
-                ) != PackageManager.PERMISSION_GRANTED ) {
+            if(!checkPermission(Manifest.permission.CAMERA) ) {
                 requestPermissionLauncher.launch(Manifest.permission.CAMERA)
             }else{
                 startCamera()
             }
 
         }
+        binding.cbLocation.setOnClickListener {
+            if(binding.cbLocation.isChecked){
+                getMyLocation()
+            }else{
+                lat = null
+                lon= null
+            }
+
+        }
         binding.buttonAdd.setOnClickListener {
-
                 uploadImage()
-
         }
     }
 
@@ -70,7 +81,7 @@ class AddStoryFragment : Fragment() {
         currentImage?.let{
             val file = uriToFile(it,requireContext()).reduceFileSize()
             val description = binding.edAddDescription.text.toString()
-            viewModel?.postStory(file, description)?.observe(viewLifecycleOwner){result->
+            viewModel?.postStory(file, description,lat,lon)?.observe(viewLifecycleOwner){result->
                 when(result){
                     is Result.Loading ->{
                         binding.progressBar.visibility = View.VISIBLE
@@ -100,6 +111,45 @@ class AddStoryFragment : Fragment() {
         } else {
             Toast.makeText(requireContext(), "Camera permission is required", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private val requestLocationPermission = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ){isGranted:Boolean->
+        if(isGranted){
+            getMyLocation()
+        }else {
+            Toast.makeText(requireContext(), " Location permission is required", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+    private fun checkPermission(permission: String): Boolean {
+        return ContextCompat.checkSelfPermission(
+            requireContext(),
+            permission
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+    private fun getMyLocation() {
+        if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            fusedLocationProviderClient.lastLocation.addOnSuccessListener { location: Location? ->
+                if (location != null) {
+                    lat = location.latitude
+                    lon = location.longitude
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.location_not_found),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        } else {
+            requestLocationPermission.launch(
+                    Manifest.permission.ACCESS_FINE_LOCATION
+
+            )
+        }
+
     }
 
     private fun startCamera() {
