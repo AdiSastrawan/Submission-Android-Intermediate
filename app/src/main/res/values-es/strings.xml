@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">StoryApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="sign_in">Iniciar sesión</string>
+    <string name="sign_up">Registrarse</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="text_password">Contraseña</string>
+    <string name="text_email">Correo electrónico</string>
+    <string name="upload">Subir</string>
+    <string name="gallery">Galería</string>
+    <string name="camera">Cámara</string>
+    <string name="favorite">Favorito</string>
+    <string name="warning_picture_cannot_empty">La imagen no puede estar vacía</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="empty_text">SIN DATOS</string>
+    <string name="app_widget_description">Esta es una descripción del widget de la aplicación</string>
+    <string name="story_app">App de Historias</string>
+    <string name="setting">Configuración</string>
+    <string name="language">Idioma</string>
+    <string name="welcome_to_my_story_app">Bienvenido a Mi App de Historias</string>
+    <string name="welcome_back">¡Bienvenido de vuelta!</string>
+    <string name="please_log_in">Por favor, inicia sesión en tu cuenta.</string>
+    <string name="create_an_account">Crear una cuenta</string>
+    <string name="join_us">Únete a nuestra comunidad y comienza a compartir tus historias con el mundo!</string>
+    <string name="share_stories">Comparte tus historias aquí</string>
+    <string name="invalid_email_address">Dirección de correo electrónico no válida</string>
+    <string name="password_warning">La contraseña debe tener 8 caracteres o más</string>
+    <string name="no_data_found">No se han encontrado datos</string>
+    <string name="add_description">Agregar descripción</string>
+    <string name="map">Mapa</string>
+    <string name="retry">Reintentar</string>
+    <string name="show_location">Mostrar mi ubicación</string>
+    <string name="location_not_found">La ubicación no se encuentra. Inténtelo de nuevo</string>
+</resources>
