@@ -1,26 +1,19 @@
 package com.adisastrawan.storyapp.ui.maps
 
 import android.content.res.Resources
-import androidx.fragment.app.Fragment
-
 import android.os.Bundle
-import android.os.Message
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.adisastrawan.storyapp.R
-import com.adisastrawan.storyapp.data.api.response.ListStoryResponse
-import com.adisastrawan.storyapp.data.database.StoryEntity
 import com.adisastrawan.storyapp.databinding.FragmentMapsBinding
 import com.adisastrawan.storyapp.ui.ViewModelFactory
-import com.adisastrawan.storyapp.ui.auth.AuthViewModel
 import com.adisastrawan.storyapp.utils.Result
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -81,12 +74,17 @@ class MapsFragment : Fragment() {
 
     private fun setMapStyle(googleMap: GoogleMap) {
         try {
-            val success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(),R.raw.maps_style))
-            if(!success){
+            val success = googleMap.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                    requireContext(),
+                    R.raw.maps_style
+                )
+            )
+            if (!success) {
                 Log.e(TAG, "Style parsing failed.")
             }
-        }catch (e: Resources.NotFoundException){
-            Log.e(TAG,"Can't find style, Error : ",e)
+        } catch (e: Resources.NotFoundException) {
+            Log.e(TAG, "Can't find style, Error : ", e)
         }
     }
 
@@ -94,7 +92,7 @@ class MapsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMapsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -117,7 +115,8 @@ class MapsFragment : Fragment() {
         super.onDestroy()
         (requireActivity() as AppCompatActivity).supportActionBar?.show()
     }
-    companion object{
+
+    companion object {
         const val TAG = "MapsFragment"
     }
 }

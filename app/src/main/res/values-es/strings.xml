@@ -27,4 +27,8 @@
     <string name="password_warning">La contraseña debe tener 8 caracteres o más</string>
     <string name="no_data_found">No se han encontrado datos</string>
     <string name="add_description">Agregar descripción</string>
+    <string name="map">Mapa</string>
+    <string name="retry">Reintentar</string>
+    <string name="show_location">Mostrar mi ubicación</string>
+    <string name="location_not_found">La ubicación no se encuentra. Inténtelo de nuevo</string>
 </resources>

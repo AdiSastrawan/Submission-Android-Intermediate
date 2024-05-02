@@ -5,7 +5,39 @@
       <entry key="LoginFragmentTest">
         <State />
       </entry>
+      <entry key="LoginLogoutTest">
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\TU ADI\.android\avd\Pixel_2_API_30.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-05-02T03:27:25.451035500Z" />
+        </State>
+      </entry>
       <entry key="app">
+        <State>
+          <runningDeviceTargetSelectedWithDropDown>
+            <Target>
+              <type value="RUNNING_DEVICE_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="SERIAL_NUMBER" />
+                  <value value="BUEUGQT8QOX8IBPN" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </runningDeviceTargetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-05-02T03:37:00.682141700Z" />
+        </State>
+      </entry>
+      <entry key="login_Error()">
         <State />
       </entry>
     </value>

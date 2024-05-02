@@ -14,19 +14,17 @@ import com.adisastrawan.storyapp.utils.getOrAwaitValue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(MockitoJUnitRunner::class)
-class ListStoryViewModelTest{
+class ListStoryViewModelTest {
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
 
@@ -34,10 +32,10 @@ class ListStoryViewModelTest{
     val mainDispatcherRules = MainDispatcherRule()
 
     @Mock
-    private lateinit var storyAppRepository:StoryAppRepository
+    private lateinit var storyAppRepository: StoryAppRepository
 
     @Test
-    fun `when Get Story Should Not Null and Return Data`()= runTest{
+    fun `when Get Story Should Not Null and Return Data`() = runTest {
         val dummyStories = DataDummy.generateDummyStories()
         val data = QuotePagingSource.snapshot(dummyStories)
         val expectedStories = MutableLiveData<PagingData<StoryEntity>>()
@@ -54,13 +52,13 @@ class ListStoryViewModelTest{
         differ.submitData(actualStories)
 
         assertNotNull(differ.snapshot())
-        assertEquals(dummyStories.size,differ.snapshot().size)
-        assertEquals(dummyStories[0],differ.snapshot()[0])
+        assertEquals(dummyStories.size, differ.snapshot().size)
+        assertEquals(dummyStories[0], differ.snapshot()[0])
     }
 
     @Test
-    fun `when Get Story Empty Should Return No Data`() = runTest{
-        val data : PagingData<StoryEntity> = PagingData.from(emptyList())
+    fun `when Get Story Empty Should Return No Data`() = runTest {
+        val data: PagingData<StoryEntity> = PagingData.from(emptyList())
         val expectedStories = MutableLiveData<PagingData<StoryEntity>>()
         expectedStories.value = data
         `when`(storyAppRepository.getStories()).thenReturn(expectedStories)
@@ -73,10 +71,11 @@ class ListStoryViewModelTest{
         )
         differ.submitData(actualStories)
 
-        assertEquals(0,differ.snapshot().size)
+        assertEquals(0, differ.snapshot().size)
 
     }
 }
+
 val noopListUpdateCallback = object : ListUpdateCallback {
     override fun onInserted(position: Int, count: Int) {}
     override fun onRemoved(position: Int, count: Int) {}

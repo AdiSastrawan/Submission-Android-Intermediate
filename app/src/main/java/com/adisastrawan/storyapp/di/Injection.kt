@@ -6,8 +6,6 @@ import com.adisastrawan.storyapp.data.database.StoryRoomDatabase
 import com.adisastrawan.storyapp.repository.StoryAppRepository
 import com.adisastrawan.storyapp.ui.auth.AuthPreferences
 import com.adisastrawan.storyapp.ui.auth.dataStore
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
 
 object Injection {
     fun provideRepository(context: Context):StoryAppRepository{

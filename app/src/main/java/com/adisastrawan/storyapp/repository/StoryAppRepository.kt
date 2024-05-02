@@ -28,7 +28,11 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.HttpException
 import java.io.File
 
-class StoryAppRepository(private val apiService: ApiService,private val database: StoryRoomDatabase,private val dataPreferences: AuthPreferences) {
+class StoryAppRepository(
+    private val apiService: ApiService,
+    private val database: StoryRoomDatabase,
+    private val dataPreferences: AuthPreferences
+) {
     private val storyDao = database.storyDao()
     fun register(
         username: String,
@@ -41,7 +45,7 @@ class StoryAppRepository(private val apiService: ApiService,private val database
             emit(response)
         } catch (e: HttpException) {
             val errorMessage = parseJsonToErrorMessage(e.response()?.errorBody()?.string())
-            Log.e(TAG,errorMessage)
+            Log.e(TAG, errorMessage)
             emit(Result.Error(errorMessage))
         }
 
@@ -53,9 +57,7 @@ class StoryAppRepository(private val apiService: ApiService,private val database
             try {
                 val response = Result.Success(apiService.login(email, password))
                 val loginResult = response.data.loginResult
-                dataPreferences.saveAuth(loginResult.token, loginResult.name,loginResult.userId)
-//                val token = dataPreferences.getAuth().first().token
-//                Log.d(TAG,token)
+                dataPreferences.saveAuth(loginResult.token, loginResult.name, loginResult.userId)
                 emit(response)
             } catch (e: HttpException) {
                 val errorMessage = parseJsonToErrorMessage(e.response()?.errorBody()?.string())
@@ -65,16 +67,16 @@ class StoryAppRepository(private val apiService: ApiService,private val database
         }
     }
 
-    fun getStories():LiveData<PagingData<StoryEntity>> {
+    fun getStories(): LiveData<PagingData<StoryEntity>> {
         wrapEspressoIdlingResource {
-            val token :String = runBlocking { dataPreferences.getAuth().first().token}
+            val token: String = runBlocking { dataPreferences.getAuth().first().token }
 
             @OptIn(ExperimentalPagingApi::class)
             return Pager(
                 config = PagingConfig(
                     pageSize = 5
                 ),
-                remoteMediator = StoryRemoteMediator(database, apiService,"Bearer $token"),
+                remoteMediator = StoryRemoteMediator(database, apiService, "Bearer $token"),
                 pagingSourceFactory = {
                     storyDao.getAllStory()
                 }
@@ -82,9 +84,14 @@ class StoryAppRepository(private val apiService: ApiService,private val database
         }
     }
 
-    fun postStory( file: File,description:String,lat:Double?,lon:Double?):LiveData<Result<RegisterResponse>> = liveData{
+    fun postStory(
+        file: File,
+        description: String,
+        lat: Double?,
+        lon: Double?
+    ): LiveData<Result<RegisterResponse>> = liveData {
         emit(Result.Loading)
-        val token :String = runBlocking { dataPreferences.getAuth().first().token}
+        val token: String = runBlocking { dataPreferences.getAuth().first().token }
         try {
             val requestDesciption = description.toRequestBody("text/plain".toMediaType())
             val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
@@ -95,32 +102,40 @@ class StoryAppRepository(private val apiService: ApiService,private val database
                 file.name,
                 requestImageFile
             )
-            val response = apiService.postStory(multipartBody,requestDesciption,requestLat,requestLon,"Bearer $token")
+            val response = apiService.postStory(
+                multipartBody,
+                requestDesciption,
+                requestLat,
+                requestLon,
+                "Bearer $token"
+            )
             emit(Result.Success(response))
-        }catch (e:HttpException){
+        } catch (e: HttpException) {
             val errorMessage = parseJsonToErrorMessage(e.response()?.errorBody()?.string())
-            Log.e(TAG,errorMessage)
+            Log.e(TAG, errorMessage)
             emit(Result.Error(errorMessage))
         }
 
 
     }
-    fun getStoriesWithLocation():LiveData<Result<List<ListStoryItem>>> = liveData{
+
+    fun getStoriesWithLocation(): LiveData<Result<List<ListStoryItem>>> = liveData {
         emit(Result.Loading)
-        val token :String = runBlocking { dataPreferences.getAuth().first().token}
+        val token: String = runBlocking { dataPreferences.getAuth().first().token }
         try {
-            val response = apiService.getStoriesWithLocation(token="Bearer $token")
+            val response = apiService.getStoriesWithLocation(token = "Bearer $token")
             val responseResult = response.listStory
             emit(Result.Success(responseResult))
-        }catch (e:HttpException){
+        } catch (e: HttpException) {
             val errorMessage = parseJsonToErrorMessage(e.response()?.errorBody()?.string())
-            Log.e(TAG,errorMessage)
+            Log.e(TAG, errorMessage)
             emit(Result.Error(errorMessage))
         }
 
 
     }
-    private fun parseJsonToErrorMessage(jsonInString:String?):String{
+
+    private fun parseJsonToErrorMessage(jsonInString: String?): String {
         val errorBody = Gson().fromJson(jsonInString, RegisterResponse::class.java)
         return errorBody.message
     }
@@ -128,11 +143,16 @@ class StoryAppRepository(private val apiService: ApiService,private val database
 
     companion object {
         const val TAG = "StoryAppRepository"
+
         @Volatile
         private var INSTANCE: StoryAppRepository? = null
-        fun getInstance(apiService: ApiService,database: StoryRoomDatabase,dataPreferences: AuthPreferences): StoryAppRepository {
+        fun getInstance(
+            apiService: ApiService,
+            database: StoryRoomDatabase,
+            dataPreferences: AuthPreferences
+        ): StoryAppRepository {
             return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: StoryAppRepository(apiService, database,dataPreferences )
+                INSTANCE ?: StoryAppRepository(apiService, database, dataPreferences)
             }.also { INSTANCE = it }
         }
     }

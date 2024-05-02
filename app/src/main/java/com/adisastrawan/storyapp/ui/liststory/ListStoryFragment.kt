@@ -1,24 +1,19 @@
 package com.adisastrawan.storyapp.ui.liststory
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.navigation.findNavController
-import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.adisastrawan.storyapp.R
 import com.adisastrawan.storyapp.data.database.StoryEntity
 import com.adisastrawan.storyapp.databinding.FragmentListStoryBinding
 import com.adisastrawan.storyapp.ui.ViewModelFactory
 import com.adisastrawan.storyapp.ui.auth.AuthViewModel
-import com.adisastrawan.storyapp.utils.Result
 
 class ListStoryFragment : Fragment() {
     private var _binding : FragmentListStoryBinding? = null
@@ -66,10 +61,6 @@ class ListStoryFragment : Fragment() {
             }
         }
 
-    }
-
-    private fun showToast(message:String){
-        Toast.makeText(requireContext(),message, Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroy() {

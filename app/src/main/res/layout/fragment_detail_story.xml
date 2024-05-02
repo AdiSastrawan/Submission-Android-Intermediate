@@ -33,7 +33,8 @@
             app:layout_constraintHeight_max="480dp"
             app:layout_constraintStart_toStartOf="@+id/tv_detail_name"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+            tools:src="@tools:sample/avatars"
+            android:contentDescription="TODO" />
 
         <TextView
             android:id="@+id/tv_detail_description"

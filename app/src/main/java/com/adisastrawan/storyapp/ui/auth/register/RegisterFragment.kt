@@ -46,12 +46,13 @@ class RegisterFragment : Fragment() {
                     is Result.Success ->{
                         binding.progressBar.visibility = View.GONE
                         val message = result.data.message
-                        showToast(message)
+                        Toast.makeText(requireContext(),message,Toast.LENGTH_LONG).show()
                         findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                     }
                     is Result.Error->{
                         binding.progressBar.visibility = View.GONE
-                        showToast(result.error)
+                        binding.tvError.visibility = View.VISIBLE
+                        binding.tvError.text = result.error
                     }
                 }
             }
@@ -85,10 +86,6 @@ class RegisterFragment : Fragment() {
             start()
         }
     }
-    private fun showToast(message:String){
-        Toast.makeText(requireContext(),message,Toast.LENGTH_LONG).show()
-    }
-
     override fun onResume() {
         super.onResume()
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()

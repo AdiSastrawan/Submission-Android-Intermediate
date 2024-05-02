@@ -18,7 +18,8 @@
             app:layout_constraintHeight_min="240dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/baseline_photo_24" />
+            android:src="@drawable/baseline_photo_24"
+            android:contentDescription="TODO" />
 
         <Button
             android:id="@+id/btn_camera"

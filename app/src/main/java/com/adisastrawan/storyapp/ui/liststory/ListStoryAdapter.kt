@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.adisastrawan.storyapp.R
 import com.adisastrawan.storyapp.data.database.StoryEntity

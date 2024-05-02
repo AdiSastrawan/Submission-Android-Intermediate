@@ -15,37 +15,38 @@ import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
-    private var authViewModel : AuthViewModel? = null
+    private var authViewModel: AuthViewModel? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val factory = ViewModelFactory.getInstance(this)
-        authViewModel = ViewModelProvider(this,factory)[AuthViewModel::class.java]
+        authViewModel = ViewModelProvider(this, factory)[AuthViewModel::class.java]
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
-        inflater.inflate(R.menu.main_menu,menu)
+        inflater.inflate(R.menu.main_menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
-            R.id.action_logout->{
+        return when (item.itemId) {
+            R.id.action_logout -> {
                 lifecycleScope.launch {
-                    authViewModel?.saveAuth("","","")
+                    authViewModel?.saveAuth("", "", "")
                 }
                 true
             }
-            R.id.setting_language->{
+
+            R.id.setting_language -> {
                 startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
                 true
             }
 
-            R.id.action_map->{
+            R.id.action_map -> {
                 val fragment = MapsFragment()
                 val fragmentManager = supportFragmentManager
-                val fragmentTransaction= fragmentManager.beginTransaction()
+                val fragmentTransaction = fragmentManager.beginTransaction()
 
                 fragmentTransaction.replace(R.id.container, fragment)
 
@@ -55,6 +56,7 @@ class MainActivity : AppCompatActivity() {
 
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

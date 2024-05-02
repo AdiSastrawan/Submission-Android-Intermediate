@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -48,13 +46,12 @@ class LoginFragment : Fragment() {
                     }
                     is Result.Success -> {
                         binding.progressBar.visibility = View.GONE
-                        val data = result.data.loginResult
-//                        authViewModel.saveAuth(data.token,data.name,data.userId)
                         view.findNavController().navigate(R.id.action_loginFragment_to_listStoryFragment)
                     }
                     is Result.Error -> {
                         binding.progressBar.visibility = View.GONE
-                        showToast(result.error)
+                        binding.tvError.visibility = View.VISIBLE
+                        binding.tvError.text = result.error
                     }
                 }
             }
@@ -83,9 +80,6 @@ class LoginFragment : Fragment() {
             start()
         }
     }
-    private fun showToast(message:String){
-        Toast.makeText(requireContext(),message, Toast.LENGTH_LONG).show()
-    }
     override fun onResume() {
         super.onResume()
         if(requireActivity() is MainActivity){
@@ -102,6 +96,7 @@ class LoginFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        _binding = null
         if(requireActivity() is MainActivity){
             (requireActivity() as MainActivity).supportActionBar?.show()
         }

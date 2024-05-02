@@ -1,6 +1,5 @@
 package com.adisastrawan.storyapp.data.database
 
-import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -10,8 +9,10 @@ import androidx.room.Query
 interface RemoteKeysDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(storyEntity: List<RemoteKeysEntity>)
+
     @Query("DELETE FROM remote_keys")
     suspend fun deleteRemoteKeys()
+
     @Query("SELECT * FROM remote_keys WHERE id = :id")
     suspend fun getRemoteKeysId(id: String): RemoteKeysEntity?
 }
